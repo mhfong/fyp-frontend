@@ -1,5 +1,9 @@
 .home {
     text-align: center;
+    justify-content: space-around;
+    display: flex;
+    margin:0px;
+    background: #1B1D26;
 }
 
 nav {
