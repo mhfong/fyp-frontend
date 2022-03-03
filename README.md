@@ -1,6 +1,7 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). \
+The design of the UI of this project can be viewed [Here](https://www.figma.com/file/0oVqiqKLAPMb0sgRSEZdhF/StalkPrice-UI?node-id=0%3A1)
 
 ## Available Scripts
 
