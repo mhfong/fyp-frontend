@@ -16,10 +16,10 @@ class ThemeToggler extends Component {
 
     render() { 
         return (
-            <div class="right">
-                <div class="theme-toggler" onClick={this.handleClick}>
-                    <span id="sun" class="material-icons-sharp active">light_mode</span>
-                    <span id="moon" class="material-icons-sharp">dark_mode</span>
+            <div className="right">
+                <div className="theme-toggler" onClick={this.handleClick}>
+                    <span id="sun" className="material-icons-sharp active">light_mode</span>
+                    <span id="moon" className="material-icons-sharp">dark_mode</span>
                 </div>
             </div>
         );

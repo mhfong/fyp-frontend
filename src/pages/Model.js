@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import Sidebar from '../components/sidebar';
+import ThemeToggler from '../components/themeToggler'
 
-class Statistics extends Component {
+class Model extends Component {
     state = {  } 
     render() { 
         return (
             <div>
                 <Sidebar />
-                This is Statistics
+                <ThemeToggler />
+                This is Model
             </div>
         );
     }
 }
  
-export default Statistics;
+export default Model;

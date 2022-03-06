@@ -6,14 +6,14 @@ import ThemeToggler from '../components/themeToggler'
 class Home extends Component {
     render() { 
         return (
-            <div className='home'>
+            <div className='main'>
                 <link
                     href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
                     rel="stylesheet"
                 />
                 <ThemeToggler />
                 <Link to="/">
-                    <img className='logo' src={logo} alt="Logo" />
+                    <img className='logo1' src={logo} alt="Logo" />
                 </Link>
                 <h1 className='title'>With a future vision, makes better decisions</h1>
                 <h2 className='baseline'>Here we help you to predict an ETF of 5 business days.</h2>
