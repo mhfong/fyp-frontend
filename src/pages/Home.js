@@ -11,7 +11,6 @@ class Home extends Component {
                     href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
                     rel="stylesheet"
                 />
-                <ThemeToggler />
                 <Link to="/">
                     <img className='logo1' src={logo} alt="Logo" />
                 </Link>
