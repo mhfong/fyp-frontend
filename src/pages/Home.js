@@ -4,6 +4,11 @@ import logo from '../assets/images/logo.svg'
 import ThemeToggler from '../components/themeToggler'
 
 class Home extends Component {
+    handleClick = () => {
+        const bt1 = document.getElementById('btn1');
+        bt1.classList.toggle('active');
+        
+    }
     render() { 
         return (
             <div className='main'>
@@ -16,7 +21,7 @@ class Home extends Component {
                 </Link>
                 <h1 className='title'>With a future vision, makes better decisions</h1>
                 <h2 className='baseline'>Here we help you to predict an ETF of 5 business days.</h2>
-                <Link to="/Dashboard">
+                <Link to="/Dashboard" onClick={this.handleClick}>
                     <button className='btn1'>
                         <span>Get Started</span>
                     </button>

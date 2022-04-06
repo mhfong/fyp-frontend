@@ -57,7 +57,6 @@ body {
   font-family: poppins, sans-serif;
   font-size: 0.88rem;
   background: var(--color-background);
-  user-select: none;
   overflow-x: hidden;
   color: var(--color-dark);
 }
@@ -246,6 +245,16 @@ main {
   background: var(--color-light);
   border-radius: var(--border-radius-1);
   padding: 0.5rem 1rem;
+  margin-left: 20px;
+}
+
+.input {
+  display: inline-block;
+  background: var(--color-light);
+  border-radius: var(--border-radius-1);
+  padding: 0.5rem 1rem;
+  margin-top: 60px;
+  margin-bottom: -50px;
 }
 
 main .insights {
@@ -256,7 +265,8 @@ main .insights {
 
 main .insights > div {
   background: var(--color-white);
-  padding: var(--card-padding);
+  padding-left: 20px;
+  padding-right: 20px;
   border-radius: var(--card-border-radius);
   margin-top: 1rem;
   box-shadow: var(--box-shadow);
@@ -275,7 +285,6 @@ main .insights > div:hover {
 }
 
 main .insights > div span {
-  vertical-align: middle;
   font-size: 2.5rem;
 }
 
@@ -301,6 +310,36 @@ main .insights .progress {
 main .insights small {
   margin-top: 1.3rem;
   display: block;
+}
+
+/* ================ PREDICT ================ */
+main .predict {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.6rem;
+}
+
+main .predict > div {
+  display: flex;
+  justify-content: flex-end;
+  background: var(--color-white);
+  padding: var(--card-padding);
+  border-radius: var(--card-border-radius);
+  margin-top: 1rem;
+  box-shadow: var(--box-shadow);
+  transition: all 300ms ease;
+  width: 15rem;
+  height: 15rem;
+}
+
+main .predict > div:hover {
+  box-shadow: none;
+}
+
+main .predict > div.graph {
+  width: 55.35vw;
+  height: 25rem;
 }
 
 /* ================= RIGHT ================ */
@@ -432,8 +471,8 @@ main .insights small {
 
 .desc-text {
   width: 550px;
-  height: 70px;
-  font-size: 1.1rem;
+  height: 30px;
+  font-size: 1rem;
   font-family: Poppins;
   font-style: normal;
   font-weight: normal;
@@ -468,6 +507,7 @@ main .insights small {
 }
 
 .price {
+  border-bottom: 0.1rem solid var(--color-light);
   font-size: 32px;
   height: 5rem; 
   width:100%;
@@ -478,6 +518,7 @@ main .insights small {
 }
 
 .price-time {
+  font-family: arial,sans-serif;
   font-size: 1.2rem;
   text-align: center;
 }
@@ -489,5 +530,12 @@ main .insights small {
 }
 
 .text-center {
+  margin-top: 1rem;
   text-align: center;
+}
+
+.subtitle {
+  margin-top: 3rem;
+  margin-bottom: -2.5rem;
+
 }
