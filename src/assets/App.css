@@ -240,7 +240,7 @@ main {
   width: 80vw;
 }
 
-.date {
+main .date {
   display: inline-block;
   background: var(--color-light);
   border-radius: var(--border-radius-1);
@@ -248,11 +248,11 @@ main {
   margin-left: 20px;
 }
 
-.input {
-  display: inline-block;
+main .input {
+  display:inline-block;
   background: var(--color-light);
   border-radius: var(--border-radius-1);
-  padding: 0.5rem 1rem;
+  padding: 10px 20px;
   margin-top: 60px;
   margin-bottom: -50px;
 }
@@ -472,25 +472,14 @@ main .predict > div.graph {
 .desc-text {
   width: 550px;
   height: 30px;
+  margin-left: 2rem;
   font-size: 1rem;
   font-family: Poppins;
   font-style: normal;
   font-weight: normal;
   display: flex;
   text-align: left;
-  color: var(--color-dark-variant);
-}
-
-.desc-line {
-  position: absolute;
-  fill: none;
-  stroke: var(--color-primary);
-  stroke-width: 8;
-
-}
-
-.toggle2 {
-  top: 0;
+  color: var(--color-dark);
 }
 
 .up {
@@ -535,7 +524,56 @@ main .predict > div.graph {
 }
 
 .subtitle {
-  margin-top: 3rem;
+  margin-top: 4rem;
   margin-bottom: -2.5rem;
+}
 
+.model-select{
+  display: inline-flex;
+  align-items: center;
+}
+
+.model-select > * {
+  font-size: 1.2rem;
+  align-items: center;
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+.formula {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5rem;
+}
+
+.formula > h2 {
+  font-size: 2rem;
+  margin-bottom: -8rem;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+main .desc {
+  font-size: 10px;
+  font-weight: normal;
+  margin-top: -0.5rem;
+  margin-bottom: -2rem;
+  margin-left: 0.5rem;
+  align-items: center;
+}
+
+.desc > span {
+  font-size: 0.2rem;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+Select {
+  width: fit-content;
+  color:#C15FA7;
+}
+
+svg {
+  stroke: var(--color-dark);
+  position:absolute;
 }

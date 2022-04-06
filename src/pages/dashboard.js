@@ -3,7 +3,11 @@ import { useEffect, useState, useMemo } from 'react';
 import Sidebar from '../components/sidebar';
 import Profile from '../components/profile';
 import Chart from 'react-apexcharts';
+import Select from 'react-select'
+import makeAnimated from 'react-select/animated';
 import { wait } from '@testing-library/user-event/dist/utils';
+
+const animatedComponents = makeAnimated();
 
 const stonksUrl = 'https://yahoo-finance-api.vercel.app/QQQ';
 async function getStonks() {
@@ -16,6 +20,16 @@ const directionEmojis = {
   down: '',
   '': ''
 };
+
+const datasets = [
+    { value: '1', label: '23Y QQQ Price' },
+    { value: '2', label: '5Y TOP10 Holdings' }
+]
+
+const models = [
+    { value: '1', label: 'LSTM' },
+    { value: '2', label: 'GRU' }
+]
 
 const chart = {
   options: {
@@ -112,7 +126,7 @@ function Dashboard() {
             } catch (error) {
             console.log(error);
             }
-            timeoutId = setTimeout(getLatestPrice, 1000);
+            timeoutId = setTimeout(getLatestPrice, 1000 * 3);
         }
         setInterval(() => setDateState(new Date()),  1000);
         getLatestPrice();
@@ -130,6 +144,10 @@ function Dashboard() {
                 <main>
                     <h1>Welcome to StalkPrice</h1>
                     <Profile />
+                    <svg>
+                        <line x1="1" y1="3" x2="1" y2="40" stroke="#7380ec" stroke-width="0.5rem"
+                        stroke-linecap="round" />
+                    </svg>
                     <h3 class='desc-text'>
                         We provide you with real-time stock data and 5 business<br />
                         days prediction of the price of Invesco QQQ Trust Series 1
@@ -183,17 +201,26 @@ function Dashboard() {
                         </div>
                     </div>
                     <h2 className='subtitle'>5 Days Forecasting</h2>
-                    <div class="input">
-                            <div className='price-time'>
-                                <span style={{fontSize: '1.2rem', verticalAlign:'middle'}} class="material-icons-sharp">schedule</span>
-                                &nbsp;&nbsp;&nbsp;
-                                {dateState.toLocaleString('en-US', {
-                                    hour: 'numeric',
-                                    minute: 'numeric',
-                                    hour12: true,
-                                })} (HKT)
-                            </div>
+                    <div className='formula'>
+                        <div class="input">
+                                <div className='model-select'>
+                                    <span class="material-icons-sharp">source</span>
+                                    <h2>Dataset</h2>
+                                    <Select defaultValue={datasets[0]} options={datasets} isDisabled={false} />
+                                </div>
                         </div>
+                        <h2>+</h2>
+                        <div class="input">
+                                <div className='model-select'>
+                                    <span class="material-icons-sharp">psychology</span>
+                                    <h2>Model</h2>
+                                    <Select defaultValue={models[0]} options={models} isDisabled={true}/>
+                                </div>
+                        </div>
+                    </div>
+                    <h4 className='desc'>
+                        <span class="material-icons-sharp">info</span>
+                        We will suggest the best combination of our AI solution to predict the price for you. </h4>
                     <div class="predict">
 
                         <div></div>
