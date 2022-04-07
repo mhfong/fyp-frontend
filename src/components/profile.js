@@ -15,15 +15,15 @@ class Profile extends Component {
     render() { 
         return (
             <div className="right">
-                <div class="top">
+                <div className="top">
                     <div className="theme-toggler" onClick={this.handleClick}>
                         <span id="sun" className="material-icons-sharp active">light_mode</span>
                         <span id="moon" className="material-icons-sharp">dark_mode</span>
                     </div>
-                    <div class="profile">
-                        <div class="info">
+                    <div className="profile">
+                        <div className="info">
                             <p>Hi, <b>Guest</b></p>
-                            <small class="text-muted">Admin</small>
+                            <small className="text-muted">Admin</small>
                         </div>
                     </div>
                 </div>

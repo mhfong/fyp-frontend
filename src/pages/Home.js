@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/images/logo.svg'
-import ThemeToggler from '../components/themeToggler'
 
 class Home extends Component {
     handleClick = () => {
