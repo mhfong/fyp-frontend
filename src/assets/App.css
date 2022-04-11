@@ -268,7 +268,7 @@ main .submit {
 main .insights {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 1.6rem;
+  gap: 20px;
 }
 
 main .insights > div {
@@ -325,6 +325,7 @@ main .predict {
   margin-top: 2rem;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
 }
 
 main .predict > div {
@@ -342,8 +343,15 @@ main .predict .day1 > h3 {
   border-bottom: 0.1rem solid var(--color-light);
   display: flex;
   padding-top: 20px;
-  padding-bottom: 10px;
   align-items: center;
+}
+
+.day {
+  font-weight: normal;
+  margin-top: -25px;
+  margin-left: 60px;
+  margin-bottom: 10px;
+  text-align: right;
 }
 
 main .predict > div:hover {
@@ -593,7 +601,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   margin-left: 2rem;
   font-weight: bold;
   font-size: 0.5rem;
-  width: fit-content;
   text-align: center;
 }
 
@@ -641,6 +648,10 @@ svg {
 
 .btn2 > * {
   font-size: 1rem;
+}
+
+.btn2 > h2 {
+  color: var(--color-dark);
 }
 
 .btn2:hover {
