@@ -38,28 +38,7 @@ const chart = {
       }
     },
     tooltip: {
-        custom: function({ seriesIndex, dataPointIndex, w }) {
-            const o = w.globals.seriesCandleO[seriesIndex][dataPointIndex]
-            const h = w.globals.seriesCandleH[seriesIndex][dataPointIndex]
-            const l = w.globals.seriesCandleL[seriesIndex][dataPointIndex]
-            const c = w.globals.seriesCandleC[seriesIndex][dataPointIndex]
-            return (
-              '<div className="apexcharts-tooltip-candlestick">' +
-              '<div>Open: <span className="value">' +
-              o +
-              '</span></div>' +
-              '<div>High: <span className="value">' +
-              h +
-              '</span></div>' +
-              '<div>Low: <span className="value">' +
-              l +
-              '</span></div>' +
-              '<div>Close: <span className="value">' +
-              c +
-              '</span></div>' +
-              '</div>'
-            )
-          }
+        
     }
   },
 };
@@ -78,7 +57,9 @@ function Dashboard() {
     const [prevPrice, setPrevPrice] = useState();
     const [dateState, setDateState] = useState(new Date());
     const [preClose, setPreClose] = useState();
+    
 
+    
     useEffect(() => {
         let timeoutId;
         async function getLatestPrice() {
@@ -121,8 +102,7 @@ function Dashboard() {
             clearTimeout(timeoutId);
         };
     }, []);
-    const hour = dateState.getHours();
-    const min = dateState.getMinutes();
+
     var direction = useMemo(() => prevPrice < price ? 'up' : prevPrice > price ? 'down' : '', [prevPrice, price]);
     direction = price-preClose > 0 ? 'up' : 'down';
         return (
@@ -186,7 +166,7 @@ function Dashboard() {
                         <div className="graph">
                             <h2 className='text-center'>Invesco QQQ Trust, Series 1</h2>
                             <div className='chart'>
-                            <Chart options={chart.options} series={series} type="candlestick" width="100%" height={280} />
+                                <Chart options={chart.options} series={series} type="candlestick" width="100%" height={280} />
                             </div>
                         </div>
                     </div>
