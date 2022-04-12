@@ -23,13 +23,13 @@ const CaretDownIcon = () => {
     return <FontAwesomeIcon style={{color: "#363949"}} icon="fa-solid fa-angle-down fa-xl" />;
 };
   
-  const DropdownIndicator = props => {
-    return (
-      <components.DropdownIndicator {...props}>
-        <CaretDownIcon />
-      </components.DropdownIndicator>
-    );
-  };
+const DropdownIndicator = props => {
+return (
+    <components.DropdownIndicator {...props}>
+    <CaretDownIcon />
+    </components.DropdownIndicator>
+);
+};
 
 function Forecast() {
     
@@ -58,30 +58,34 @@ function Forecast() {
         setDate(moment(input.target.value).format("DD_MM_YY"));
     }
 
-    function getSelectDate(day) {
-        var count = 0;
-        var predictDays = new Array(5);
-        
-        for (let i = 0; i < 5; i++) {
-            var checkDay = count + parseInt(date.slice(0,2));
-            var checkDate = date.slice(3,5)+'-'+checkDay+"-20"+date.slice(6,8)
-            var a = new Date(checkDate);
-            if (a.getDay() == 6) {
-                count += 2
-            }
-            var predictDay = count + parseInt(date.slice(0,2));
-            var predictDate = date.slice(3,5)+'-'+predictDay+"-20"+date.slice(6,8);
-            var b = new Date(predictDate);
-            predictDays[i] = b;
-            count += 1;
-        }
+    function getPredictDate(day) {
+        var predictDate = new Array(5);
+        var todayDate = new Date(date.slice(3,5)+'-'+date.slice(0,2)+"-20"+date.slice(6,8));
+        var curDate = todayDate.getDate();
+        var curMonth = todayDate.getMonth()+1;
+        var curYear = todayDate.getFullYear();
+        var curDay = todayDate.getDay();
+        var skip1 = false;
+        var skip2 = false;
+        if(curDay == 0){curDate+=1};
+        if(curDay == 6){curDate+=2};
 
-        return (moment(predictDays[day]).format("DD MMM YY")+'\n'+weekDays[predictDays[day].getDay()]);
+        for (let i = 0; i < 5; i++) {
+            var nextday = parseInt(curDate)+i;
+            var target = new Date(curYear+'-'+curMonth+'-'+nextday);
+            if (skip1){nextday+=1};
+            if (skip2){nextday+=1};
+            if (target.getDay()==0){nextday+=1;skip1=true;};
+            if (target.getDay()==6){nextday+=2;skip2=true;};
+            target = new Date(curYear+'-'+curMonth+'-'+nextday);
+            predictDate[i] = target;
+        } 
+
+        return (moment(predictDate[day]).format("DD MMM YY")+'\n'+weekDays[predictDate[day].getDay()]);
     }
 
     function handleClick(e) {
         getPredictPrice();
-        console.log(today);
     }
 
     async function getPredictPrice() {
@@ -149,7 +153,7 @@ function Forecast() {
                     <div className="day1">
                         <h2>
                             Day 1
-                            <h4 className='day' style={{paddingLeft: "50px"}}>{getSelectDate(0)}</h4>
+                            <h4 className='day' style={{paddingLeft: "60px"}}>{getPredictDate(0)}</h4>
                         </h2>
                         <h3>High:<h1 className="www up">${highPrice[0]}</h1></h3>
                         <h3>Low:<h1 className="www down">${lowPrice[0]}</h1></h3>
@@ -157,7 +161,7 @@ function Forecast() {
                     <div className="day1">
                         <h2>
                             Day 2
-                            <h4 className='day' style={{paddingLeft: "50px"}}>{getSelectDate(1)}</h4>
+                            <h4 className='day' style={{paddingLeft: "60px"}}>{getPredictDate(1)}</h4>
                         </h2>
                         <h3>High:<h1 className="www up">${highPrice[1]}</h1></h3>
                         <h3>Low:<h1 className="www down">${lowPrice[1]}</h1></h3>
@@ -165,7 +169,7 @@ function Forecast() {
                     <div className="day1">
                     <h2>
                             Day 3
-                            <h4 className='day' style={{paddingLeft: "50px"}}>{getSelectDate(2)}</h4>
+                            <h4 className='day' style={{paddingLeft: "60px"}}>{getPredictDate(2)}</h4>
                         </h2>
                         <h3>High:<h1 className="www up">${highPrice[2]}</h1></h3>
                         <h3>Low:<h1 className="www down">${lowPrice[2]}</h1></h3>
@@ -173,7 +177,7 @@ function Forecast() {
                     <div className="day1">
                     <h2>
                             Day 4
-                            <h4 className='day' style={{paddingLeft: "50px"}}>{getSelectDate(3)}</h4>
+                            <h4 className='day' style={{paddingLeft: "60px"}}>{getPredictDate(3)}</h4>
                         </h2>
                         <h3>High:<h1 className="www up">${highPrice[3]}</h1></h3>
                         <h3>Low:<h1 className="www down">${lowPrice[3]}</h1></h3>
@@ -181,14 +185,13 @@ function Forecast() {
                     <div className="day1">
                     <h2>
                             Day 5
-                            <h4 className='day' style={{paddingLeft: "50px"}}>{getSelectDate(4)}</h4>
+                            <h4 className='day' style={{paddingLeft: "60px"}}>{getPredictDate(4)}</h4>
                         </h2>
                         <h3>High:<h1 className="www up">${highPrice[4]}</h1></h3>
                         <h3>Low:<h1 className="www down">${lowPrice[4]}</h1></h3>
                     </div>
-                    
-                    <div className='graph2'></div>
                 </div>
+                <div className='graph2'></div>
             </main>
         </div>
     );
