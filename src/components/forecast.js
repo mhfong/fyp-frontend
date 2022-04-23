@@ -8,8 +8,8 @@ import moment from 'moment';
 library.add(faAngleDown);
 
 const datasets = [
-    { value: 'qqq_', label: 'All-time QQQ' },
-    { value: 'top10_', label: 'Top 10 Holdings' }
+    { value: 'qqq_', label: '5-years QQQ' },
+    { value: 'top10_', label: '5-years Top 10' }
 ]
 
 const models = [
@@ -43,6 +43,7 @@ function Forecast() {
     async function getUrl(file) {
         const url = "https://stockpricestorage.s3.ap-east-1.amazonaws.com/log/"+file+".json";
         const response = await fetch(url);
+        console.log(url);
         return response.json();
     }
 
@@ -98,13 +99,13 @@ function Forecast() {
             while(x < len){ 
                 arrHigh[x] = arrHigh[x].toFixed(2); 
                 arrLow[x] = arrLow[x].toFixed(2); 
-                x++
+                x++;
             }
             setHighPrice(arrHigh);
+            console.log(arrHigh);
             setLowPrice(arrLow);
-        } catch (error) {
-            console.log(error);
-        }
+            console.log(arrLow);
+        } catch (error) {}
     }
 
     useEffect(() => {
