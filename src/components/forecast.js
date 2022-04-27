@@ -3,9 +3,15 @@ import Select, { components } from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
+import { Chart } from "react-google-charts";
 import moment from 'moment';
 
 library.add(faAngleDown);
+
+const options = {
+    lineDashStyle: [1, 1],
+    colors:['#7380ec','#ff7782', '#7380ec','#ff7782'],
+};
 
 const datasets = [
     { value: 'qqq_', label: '5-years QQQ' },
@@ -24,11 +30,11 @@ const CaretDownIcon = () => {
 };
   
 const DropdownIndicator = props => {
-return (
-    <components.DropdownIndicator {...props}>
-    <CaretDownIcon />
-    </components.DropdownIndicator>
-);
+    return (
+        <components.DropdownIndicator {...props}>
+        <CaretDownIcon />
+        </components.DropdownIndicator>
+    );
 };
 
 function Forecast() {
@@ -39,11 +45,24 @@ function Forecast() {
     const [model, setModel] = useState(models[0].value);
     const [date, setDate] = useState(moment(new Date()).format("DD_MM_YY"));
     const today = moment(new Date()).format("YYYY-MM-DD");
+    const [array, setArray] = useState([]);
+    const [data, setData] = useState([]);
 
     async function getUrl(file) {
         const url = "https://stockpricestorage.s3.ap-east-1.amazonaws.com/log/"+file+".json";
         const response = await fetch(url);
-        console.log(url);
+        return response.json();
+    }
+
+    async function getResultUrl() {
+        const url = "https://stockpricestorage.s3.ap-east-1.amazonaws.com/dataset/result.csv";
+        const response = await fetch(url);
+        return response.text();
+    }
+
+    async function getResulJson() {
+        const url = "https://stockpricestorage.s3.ap-east-1.amazonaws.com/doc/result.json";
+        const response = await fetch(url);
         return response.json();
     }
 
@@ -70,24 +89,46 @@ function Forecast() {
         var skip2 = false;
         if(curDay == 0){curDate+=1};
         if(curDay == 6){curDate+=2};
-
+        var count = 0;
         for (let i = 0; i < 5; i++) {
             var nextday = parseInt(curDate)+i;
-            var target = new Date(curYear+'-'+curMonth+'-'+nextday);
+            var curMonth2=curMonth;
+            if (nextday >= 30) {curMonth2+=1};
+            nextday = nextday%30
+            if (nextday==0) {count+=1}
+            nextday += count;
+            var target = new Date(curYear+'-'+curMonth2+'-'+nextday);
             if (skip1){nextday+=1};
             if (skip2){nextday+=1};
             if (target.getDay()==0){nextday+=1;skip1=true;};
             if (target.getDay()==6){nextday+=2;skip2=true;};
-            target = new Date(curYear+'-'+curMonth+'-'+nextday);
+            target = new Date(curYear+'-'+curMonth2+'-'+nextday);
             predictDate[i] = target;
         } 
 
-        return (moment(predictDate[day]).format("DD MMM YY")+'\n'+weekDays[predictDate[day].getDay()]);
+        return (moment(predictDate[day]).format("DD MMM ")+'('+weekDays[predictDate[day].getDay()]+')');
     }
 
     function handleClick(e) {
         getPredictPrice();
+        getResult();
     }
+
+    const csvFileToArray = string => {
+        const csvHeader = string.slice(0, string.indexOf("\n")).split(",");
+        const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
+    
+        const array = csvRows.map(i => {
+          const values = i.split(",");
+          const obj = csvHeader.reduce((object, header, index) => {
+            object[header] = values[index];
+            return object;
+          }, {});
+          return obj;
+        });
+    
+        setArray(array);
+      };
 
     async function getPredictPrice() {
         try {
@@ -102,15 +143,30 @@ function Forecast() {
                 x++;
             }
             setHighPrice(arrHigh);
-            console.log(arrHigh);
             setLowPrice(arrLow);
-            console.log(arrLow);
+        } catch (error) {}
+    }
+
+    async function getResult() {
+        try {
+            const data = await getResultUrl();
+            const data2 = await getResulJson();
+            var dataArr = [
+                ["", "High", "Low","Predicted High","Predicted Low"],
+            ];
+            for(let i = 0;i < Object.keys(data2.Date).length;i++) {
+                dataArr.push([data2.Date[i], data2.High[i], data2.Low[i], data2[dataset+model+"predict_high"][i], data2[dataset+model+"predict_low"][i]]);
+            }
+            setData(dataArr);
+            csvFileToArray(data);
         } catch (error) {}
     }
 
     useEffect(() => {
         getPredictPrice();
+        getResult();
     }, []);
+
 
     return (
         <div>
@@ -137,7 +193,7 @@ function Forecast() {
                             <div className='model-select'>
                                 <span className="material-icons-sharp">date_range</span>
                                 <h2>Predict date</h2>
-                                <input components={{ DropdownIndicator }} defaultValue={today} className='date-select' lang="fr-CA" type="date" min="2022-04-10" max={today} onChange={selectDate}/>
+                                <input components={{ DropdownIndicator }} defaultValue={today} className='date-select' lang="fr-CA" type="date" min="2022-04-10"  onChange={selectDate}/>
                             </div>
                     </div>
                     <h2>-{'>'}</h2>
@@ -154,7 +210,7 @@ function Forecast() {
                     <div className="day1">
                         <h2>
                             Day 1
-                            <h4 className='day' style={{paddingLeft: "60px"}}>{getPredictDate(0)}</h4>
+                            <h4 className='day'>{getPredictDate(0)}</h4>
                         </h2>
                         <h3>High:<h1 className="www up">${highPrice[0]}</h1></h3>
                         <h3>Low:<h1 className="www down">${lowPrice[0]}</h1></h3>
@@ -162,7 +218,7 @@ function Forecast() {
                     <div className="day1">
                         <h2>
                             Day 2
-                            <h4 className='day' style={{paddingLeft: "60px"}}>{getPredictDate(1)}</h4>
+                            <h4 className='day'>{getPredictDate(1)}</h4>
                         </h2>
                         <h3>High:<h1 className="www up">${highPrice[1]}</h1></h3>
                         <h3>Low:<h1 className="www down">${lowPrice[1]}</h1></h3>
@@ -170,7 +226,7 @@ function Forecast() {
                     <div className="day1">
                     <h2>
                             Day 3
-                            <h4 className='day' style={{paddingLeft: "60px"}}>{getPredictDate(2)}</h4>
+                            <h4 className='day'>{getPredictDate(2)}</h4>
                         </h2>
                         <h3>High:<h1 className="www up">${highPrice[2]}</h1></h3>
                         <h3>Low:<h1 className="www down">${lowPrice[2]}</h1></h3>
@@ -178,7 +234,7 @@ function Forecast() {
                     <div className="day1">
                     <h2>
                             Day 4
-                            <h4 className='day' style={{paddingLeft: "60px"}}>{getPredictDate(3)}</h4>
+                            <h4 className='day'>{getPredictDate(3)}</h4>
                         </h2>
                         <h3>High:<h1 className="www up">${highPrice[3]}</h1></h3>
                         <h3>Low:<h1 className="www down">${lowPrice[3]}</h1></h3>
@@ -186,13 +242,61 @@ function Forecast() {
                     <div className="day1">
                     <h2>
                             Day 5
-                            <h4 className='day' style={{paddingLeft: "60px"}}>{getPredictDate(4)}</h4>
+                            <h4 className='day'>{getPredictDate(4)}</h4>
                         </h2>
                         <h3>High:<h1 className="www up">${highPrice[4]}</h1></h3>
                         <h3>Low:<h1 className="www down">${lowPrice[4]}</h1></h3>
                     </div>
                 </div>
-                <div className='graph2'></div>
+                <h2>
+                    Predicted Result (Graph)
+                </h2>
+                <div className='graphs'>
+                    <div className="graph_predict">
+                        <div className='chart'>
+                            <Chart
+                                chartType="Line"
+                                width="100%"
+                                height="420px"
+                                data={data}
+                                options={options}
+                            />
+                        </div>
+                    </div>         
+                </div>
+                
+                <div class="recent-orders">
+                    <h2>Predicted Result (Table)</h2>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>High</th>
+                            <th>Predicted High<br/>(QQQ LSTM))</th>
+                            <th>Predicted High<br/>(Top10 LSTM))</th>
+                            <th>Predicted High<br/>(QQQ GRU))</th>
+                            <th>Predicted High<br/>(Top10 GRU))</th>
+                            <th>Low</th>
+                            <th>Predicted Low<br/>(QQQ LSTM))</th>
+                            <th>Predicted Low<br/>(Top10 LSTM))</th>
+                            <th>Predicted Low<br/>(QQQ GRU))</th>
+                            <th>Predicted Low<br/>(Top10 GRU))</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {array.map((item) => (
+                                <tr key={item.id}>
+                                {Object.values(item).map((val) => (
+                                    <td>{val}</td>
+                                ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                    <a href="#">Show All</a>
+                </div>
+
             </main>
         </div>
     );

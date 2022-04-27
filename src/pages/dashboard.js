@@ -165,7 +165,7 @@ function Dashboard() {
 
                         <div className="graph">
                             <h2 className='text-center'>Invesco QQQ Trust, Series 1</h2>
-                            <div className='chart'>
+                            <div className='chart1'>
                                 <Chart options={chart.options} series={series} type="candlestick" width="100%" height={280} />
                             </div>
                         </div>
