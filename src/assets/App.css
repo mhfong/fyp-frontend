@@ -629,6 +629,41 @@ main .recent-orders a {
   color: var(--color-dark);
 }
 
+.desc-text2 {
+  width: 1000px;
+  height: 30px;
+  margin-left: 2rem;
+  font-size: 15px;
+  margin-top: 1rem;
+  font-family: Poppins;
+  font-weight: normal;
+  text-align: justify;
+  color: var(--color-dark);
+}
+
+.desc-text3 {
+  width: 1000px;
+  height: 30px;
+  font-size: 15px;
+  margin-top: 1rem;
+  font-family: Poppins;
+  font-weight: normal;
+  text-align: justify;
+  color: var(--color-dark);
+}
+
+.desc-text4 {
+  width: 1000px;
+  height: 30px;
+  font-size: 20px;
+  font-family: arial;
+
+  margin-top: 1rem;
+  margin-bottom: 50px;
+  font-weight: normal;
+  color: var(--color-dark);
+}
+
 .up {
   color: #44aa5f;
 }
@@ -693,6 +728,11 @@ main .recent-orders a {
 .subtitle {
   margin-top: 4rem;
   margin-bottom: -2.5rem;
+}
+
+.subtitle2 {
+  margin-top: 10rem;
+  margin-bottom: 0rem;
 }
 
 .date-select {

@@ -58,8 +58,8 @@ function Model()  {
                                         strokeLinecap: 'butt',
                                         textSize: '14px',
                                         pathTransitionDuration: 0.5,
-                                        pathColor: '#7380ec',
-                                        textColor: '#7380ec',
+                                        pathColor: '#41f1b6',
+                                        textColor: '#363949',
                                         trailColor: '#d6d6d6',
                                       })}
                                     />
@@ -81,8 +81,8 @@ function Model()  {
                                         strokeLinecap: 'butt',
                                         textSize: '14px',
                                         pathTransitionDuration: 0.5,
-                                        pathColor: '#7380ec',
-                                        textColor: '#7380ec',
+                                        pathColor: '#41f1b6',
+                                        textColor: '#363949',
                                         trailColor: '#d6d6d6',
                                       })}
                                     />
@@ -104,8 +104,8 @@ function Model()  {
                                         strokeLinecap: 'butt',
                                         textSize: '14px',
                                         pathTransitionDuration: 0.5,
-                                        pathColor: '#7380ec',
-                                        textColor: '#7380ec',
+                                        pathColor: '#41f1b6',
+                                        textColor: '#363949',
                                         trailColor: '#d6d6d6',
                                       })}
                                     />
@@ -127,8 +127,8 @@ function Model()  {
                                         strokeLinecap: 'butt',
                                         textSize: '14px',
                                         pathTransitionDuration: 0.5,
-                                        pathColor: '#7380ec',
-                                        textColor: '#7380ec',
+                                        pathColor: '#41f1b6',
+                                        textColor: '#363949',
                                         trailColor: '#d6d6d6',
                                       })}
                                     />
@@ -143,6 +143,7 @@ function Model()  {
                             <h2>
                                 Models' Accuracy (%)
                             </h2>
+                            <h4 className='day'>Updated on {today}</h4>
                             <div className='chart'>
                                 <Chart
                                     chartType="Bar"
@@ -206,6 +207,7 @@ function Model()  {
                             <h2>
                                 Models' Metrics
                             </h2>
+                            <h4 className='day'>Updated on {today}</h4>
                             <div className='chart'>
                                 <Chart
                                     chartType="Bar"
