@@ -384,6 +384,10 @@ main .score > div:hover {
   padding-bottom: 15px;
 }
 
+.title2 {
+  padding-bottom: -20px;
+}
+
 .bar > * {
   position:relative;
   height: 150px;
@@ -652,6 +656,16 @@ main .recent-orders a {
 .www {
   font-size: 25px;
   height: 3rem; 
+  width:100%;
+  display:flex;
+  font-family: Google Sans,arial,sans-serif;
+  align-items: center;
+  justify-content: center;
+}
+
+.www1 {
+  font-size: 25px;
+  height: fit-content; 
   width:100%;
   display:flex;
   font-family: Google Sans,arial,sans-serif;

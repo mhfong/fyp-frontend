@@ -8,11 +8,6 @@ import moment from 'moment';
 
 library.add(faAngleDown);
 
-const options = {
-    lineDashStyle: [1, 1],
-    colors:['#7380ec','#ff7782', '#7380ec','#ff7782'],
-};
-
 const datasets = [
     { value: 'qqq_', label: '5-years QQQ' },
     { value: 'top10_', label: '5-years Top 10' }
@@ -47,6 +42,9 @@ function Forecast() {
     const today = moment(new Date()).format("YYYY-MM-DD");
     const [array, setArray] = useState([]);
     const [data, setData] = useState([]);
+    const [options, setOptions] = useState({
+        colors:['#7380ec','#ff7782', '#CCD0EB','#FFD2D6'],
+    });
 
     async function getUrl(file) {
         const url = "https://stockpricestorage.s3.ap-east-1.amazonaws.com/log/"+file+".json";
@@ -60,7 +58,7 @@ function Forecast() {
         return response.text();
     }
 
-    async function getResulJson() {
+    async function getResultJson() {
         const url = "https://stockpricestorage.s3.ap-east-1.amazonaws.com/doc/result.json";
         const response = await fetch(url);
         return response.json();
@@ -111,7 +109,7 @@ function Forecast() {
 
     function handleClick(e) {
         getPredictPrice();
-        getResult();
+        getGraphResult();
     }
 
     const csvFileToArray = string => {
@@ -147,24 +145,31 @@ function Forecast() {
         } catch (error) {}
     }
 
-    async function getResult() {
+    async function getTableResult() {
         try {
             const data = await getResultUrl();
-            const data2 = await getResulJson();
+            csvFileToArray(data);
+        } catch (error) {}
+    }
+
+    async function getGraphResult() {
+        try {
+            const data = await getResultJson();
             var dataArr = [
                 ["", "High", "Low","Predicted High","Predicted Low"],
             ];
-            for(let i = 0;i < Object.keys(data2.Date).length;i++) {
-                dataArr.push([data2.Date[i], data2.High[i], data2.Low[i], data2[dataset+model+"predict_high"][i], data2[dataset+model+"predict_low"][i]]);
+            for(let i = 0;i < Object.keys(data.Date).length;i++) {
+                dataArr.push([data.Date[i], data.High[i], data.Low[i], data[dataset+model+"predict_high"][i], data[dataset+model+"predict_low"][i]]);
             }
+
             setData(dataArr);
-            csvFileToArray(data);
         } catch (error) {}
     }
 
     useEffect(() => {
         getPredictPrice();
-        getResult();
+        getTableResult();
+        getGraphResult();
     }, []);
 
 
@@ -193,7 +198,7 @@ function Forecast() {
                             <div className='model-select'>
                                 <span className="material-icons-sharp">date_range</span>
                                 <h2>Predict date</h2>
-                                <input components={{ DropdownIndicator }} defaultValue={today} className='date-select' lang="fr-CA" type="date" min="2022-04-10"  onChange={selectDate}/>
+                                <input components={{ DropdownIndicator }} defaultValue={today} className='date-select' lang="fr-CA" type="date" min="2022-04-10" max={today} onChange={selectDate}/>
                             </div>
                     </div>
                     <h2>-{'>'}</h2>
