@@ -18,10 +18,10 @@ export const data = [
 
 export const data2 = [
     [ "", "High", "Low"],
-    ["LSTM Model 1", 100-17.77, 100-20.56],
-    ["LSTM Model 2", 100-54.93, 100-64.33],
-    ["GRU Model 1", 100-19.38, 100-19.23],
-    ["GRU Model 2", 100-68.06, 100-63.74],
+    ["LSTM Model 1", 100-18.11, 100-22.92],
+    ["LSTM Model 2", 100-58.53, 100-71.30],
+    ["GRU Model 1", 100-19.72, 100-20.98],
+    ["GRU Model 2", 100-73.22, 100-70.42],
 ];
 
 var options = {
@@ -52,8 +52,8 @@ function Model()  {
                             <h4>Updated on {today}</h4>
                             <div className='bar'>
                                     <CircularProgressbar 
-                                    text={`8.06/10`} 
-                                    value={8.06*10} 
+                                    text={`7.95/10`} 
+                                    value={7.95*10} 
                                     styles={buildStyles({
                                         strokeLinecap: 'butt',
                                         textSize: '14px',
@@ -75,8 +75,8 @@ function Model()  {
                             <h4>Updated on {today}</h4>
                             <div className='bar'>
                                     <CircularProgressbar 
-                                    text={`4.04/10`} 
-                                    value={4.04*10} 
+                                    text={`3.51/10`} 
+                                    value={3.51*10} 
                                     styles={buildStyles({
                                         strokeLinecap: 'butt',
                                         textSize: '14px',
@@ -98,8 +98,8 @@ function Model()  {
                             <h4>Updated on {today}</h4>
                             <div className='bar'>
                                     <CircularProgressbar 
-                                    text={`8.08/10`} 
-                                    value={8.08*10} 
+                                    text={`7.96/10`} 
+                                    value={7.96*10} 
                                     styles={buildStyles({
                                         strokeLinecap: 'butt',
                                         textSize: '14px',
@@ -121,8 +121,8 @@ function Model()  {
                             <h4>Updated on {today}</h4>
                             <div className='bar'>
                                     <CircularProgressbar 
-                                    text={`3.41/10`} 
-                                    value={3.41*10} 
+                                    text={`2.82/10`} 
+                                    value={2.82*10} 
                                     styles={buildStyles({
                                         strokeLinecap: 'butt',
                                         textSize: '14px',
