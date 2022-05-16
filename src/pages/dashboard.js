@@ -94,7 +94,7 @@ function Dashboard() {
             } catch (error) {
                 console.log(error);
             }
-            timeoutId = setTimeout(getLatestPrice, 1000 * 3);
+            timeoutId = setTimeout(getLatestPrice, 1);
         }
         setInterval(() => setDateState(new Date()),  1000);
         getLatestPrice();

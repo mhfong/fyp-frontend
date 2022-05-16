@@ -217,9 +217,8 @@ function Model()  {
                                     options={options}
                                 />
                             </div>
-                        </div>      
+                        </div>     
                     </div>
-                    
                 </main>
             </div>
         );

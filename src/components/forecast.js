@@ -168,8 +168,9 @@ function Forecast() {
 
     useEffect(() => {
         getPredictPrice();
-        getTableResult();
         getGraphResult();
+        getTableResult();
+        
     }, []);
 
 
